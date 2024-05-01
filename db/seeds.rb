@@ -11,7 +11,7 @@
 User.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!('users')
 User.create!([
-{name: "Sofia", email: "myMail@mail.ru"},
+{name: "Sofia", email: "myMail@mail.ru", password: "123"},
 ])
 # password: "aaa555*" в 14 строке было
 
@@ -44,9 +44,9 @@ Image.create([
 Theme.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!('themes')
 Theme.create([
-{name: "Какой десерт, по вашему мнению, наилучшим образом воплощает вкус и изысканность французской кухни?"},     
-{name: "Какой десерт лучше всего олицетворяет изысканность и традиции японской кулинарии?"},      
-{name: "Какой десерт наиболее показателен для американского образа жизни и культурных ценностей?"},   
-{name: "Какой десерт наилучшим образом представляет итальянскую кухню?"},      
-{name: "Какой десерт символизирует гостеприимство и теплоту русской кухни?"},    
+{name: "Тема 1"},     
+{name: "Тема 2"},      
+{name: "Тема 3"},   
+{name: "Тема 4"},      
+{name: "Тема 5"},    
 ])

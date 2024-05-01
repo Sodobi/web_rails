@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :images
+  resources :themes
   resources :users
   get 'main/index'
   get '/main' => "main#index"
