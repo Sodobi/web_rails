@@ -1,15 +1,16 @@
 !!!
 %html
-  %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Экспертная оценка
-    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
-    = csrf_meta_tags
-    = csp_meta_tag
-    = favicon_link_tag "favicon.png"
-    = stylesheet_link_tag "application", "data-turbo-track": "reload"
-    = javascript_importmap_tags
-  %body
-    = render 'shared/header'
-    = yield
-    = render 'shared/footer'
+%head
+%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+%title Экспертная оценка
+%meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+= csrf_meta_tags
+= csp_meta_tag
+= favicon_link_tag "favicon.png"
+= vite_javascript_tag 'application.jsx'
+= stylesheet_link_tag "application", "data-turbo-track": "reload"
+= javascript_importmap_tags
+%body
+= render 'shared/header'
+= yield
+= render 'shared/footer'

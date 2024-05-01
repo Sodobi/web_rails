@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  
-    <title>Experteese</title>
-    # <meta name="viewport" content="width=device-width,initial-scale=1">
-    # <= csrf_meta_tags>
-    # <= csp_meta_tag>
 
-    # <= favicon_link_tag "favicon.png"> 
+<head>
+  <title>Expertise</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    # <= stylesheet_link_tag "application", "data-turbo-track": "reload">
-    # <= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'>
+  <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+      <%= favicon_link_tag 'favicon.ico' %>
 
-  </head>
+        <%= stylesheet_link_tag "application" %>
+          <%= vite_client_tag %>
+            <%= vite_javascript_tag 'application' %>
 
-  <body>
-    hello
-    # <%= "yield" %>
-    
-  </body>
+              <!--
+      If using a TypeScript entrypoint file:
+        vite_typescript_tag 'application'
+
+      If using a .jsx or .tsx entrypoint, add the extension:
+        vite_javascript_tag 'application.jsx'
+
+      Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
+    -->
+
+</head>
+
+<body>
+  hello
+
+</body>
+
 </html>
