@@ -3,36 +3,23 @@ source "https://rubygems.org"
 ruby "3.3.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.3"
+gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 
+# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem "sprockets-rails"
 
-gem "haml-rails"
-
-# Use jquery as the JavaScript library
-gem 'jquery-ui-rails'
-gem 'rails-asset-jqueryui'
-
-gem 'bootstrap-sass', '3.3.7' 
-
-# Icons fonts
-gem 'font-awesome-sass', '~> 4.6.2'
-gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
-
+# PostgreSQL
 gem 'pg'
 
 # Pagination
 gem 'will_paginate'
 gem 'kaminari'
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
-
-
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
+gem "jsbundling-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -58,7 +45,6 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-gem "sass-rails"
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
