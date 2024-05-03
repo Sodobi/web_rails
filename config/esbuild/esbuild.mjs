@@ -25,10 +25,10 @@ export const config = {
   bundle: true,
   loader: {
     '.js': 'jsx',
+    '.svg': 'file',
     // '.png': 'file',
     // '.jpg': 'file',
     // '.jpeg': 'file',
-    // '.svg': 'file',
   },
   minify: isProd,
   sourcemap: isDev,

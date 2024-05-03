@@ -11,6 +11,9 @@ gem "sprockets-rails"
 # PostgreSQL
 gem 'pg'
 
+# Gemfile
+gem 'rack-cors', :require => 'rack/cors'
+
 # Pagination
 gem 'will_paginate'
 gem 'kaminari'

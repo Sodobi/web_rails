@@ -1,7 +1,14 @@
 .Footer {
-  background-color: red;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 30px;
+  font-size: 14px;
+  /* text-align: center; */
 
-  button {
-    background-color: aqua;
+  .contactInfo {
+    span {
+      display: block;
+      margin-bottom: 5px;
+    }
   }
 }

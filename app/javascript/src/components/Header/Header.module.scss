@@ -1,7 +1,78 @@
 .Header {
-  background-color: aqua;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
 
-  button {
-    background-color: blueviolet;
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .nav {
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: inline;
+        margin-right: 20px;
+
+        .linkActive {
+          color: aqua;
+        }
+
+        a {
+          text-decoration: none;
+          color: #fff;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .language-switch {
+    button {
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-right: 10px;
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
