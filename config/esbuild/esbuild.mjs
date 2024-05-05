@@ -26,9 +26,9 @@ export const config = {
   loader: {
     '.js': 'jsx',
     '.svg': 'file',
-    // '.png': 'file',
-    // '.jpg': 'file',
-    // '.jpeg': 'file',
+    '.png': 'file',
+    '.jpg': 'file',
+    '.jpeg': 'file',
   },
   minify: isProd,
   sourcemap: isDev,

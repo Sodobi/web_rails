@@ -4,10 +4,21 @@ class ThemesController < ApplicationController
   # GET /themes or /themes.json
   def index
     @themes = Theme.all
+    render json: @themes
   end
 
   # GET /themes/1 or /themes/1.json
   def show
+    if params[:id] == "this-will-trigger-a-500"
+      # Render a 500 to demonstrate how the front-end handles server side errors
+      render json: {error: "Internal server error"}, status: 500
+    elsif params[:id] == "this-will-trigger-a-401"
+      # Render a 401 to demonstrate how the front-end handles server side errors
+      render json: {error: "Not authenticated"}, status: 401
+    else
+      @theme = Theme.find(params[:id])
+      render json: @theme
+    end
   end
 
   # GET /themes/new

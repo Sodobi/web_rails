@@ -10,6 +10,7 @@ const layoutStyles = {
 
 const mainStyles = {
   flex: '1',
+  display: 'flex',
   overflowY: 'auto',
 };
 

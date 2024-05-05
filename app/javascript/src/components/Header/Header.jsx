@@ -1,12 +1,14 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { PATH_ABOUT, PATH_HOME, PATH_LOGIN } from '../Navigation/routes';
 import classes from './Header.module.scss';
-import { PATH_ABOUT, PATH_HOME } from '../Navigation/routes';
 import logo from '../../../../assets/images/logo.svg';
 
 const setActive = ({ isActive }) => (isActive ? classes.linkActive : '');
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <header className={classes.Header}>
       <div className={classes.title}>Экспертная оценка</div>
@@ -30,7 +32,7 @@ const Header = () => {
       </div>
       <div className={classes['user-info']}>
         <span>Имя пользователя</span>
-        <button>Выйти</button>
+        <button onClick={() => navigate(PATH_LOGIN)}>Выйти</button>
       </div>
     </header>
   );

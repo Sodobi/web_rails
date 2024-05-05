@@ -4,10 +4,21 @@ class ImagesController < ApplicationController
   # GET /images or /images.json
   def index
     @images = Image.all
+    render json: @images
   end
 
   # GET /images/1 or /images/1.json
   def show
+    if params[:id] == "this-will-trigger-a-500"
+      # Render a 500 to demonstrate how the front-end handles server side errors
+      render json: {error: "Internal server error"}, status: 500
+    elsif params[:id] == "this-will-trigger-a-401"
+      # Render a 401 to demonstrate how the front-end handles server side errors
+      render json: {error: "Not authenticated"}, status: 401
+    else
+      @image = Image.find(params[:id])
+      render json: @image
+    end
   end
 
   # GET /images/new
