@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight } from 'react-icons/fa';
 import classNames from 'classnames';
 import ImageService from '../../services/image.service';
 import ThemeService from '../../services/theme.service';
@@ -16,6 +17,8 @@ const Home = () => {
   const [currentImage, setCurrentImage] = useState(null);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(null);
+
+  const [rating, setRating] = useState(50);
 
   useEffect(() => {
     ImageService.getAll()
@@ -40,18 +43,29 @@ const Home = () => {
     else setCurrentImage(null);
   }, [currentImageIndex, imagesByTheme]);
 
+  const canClickNext = () => currentImageIndex !== null && currentImageIndex < imagesByTheme.length - 1;
+  const canClickPrev = () => currentImageIndex !== null && currentImageIndex > 0;
+
   const nextImage = () => {
-    if (currentImageIndex !== null && currentImageIndex < imagesByTheme.length - 1)
-      setCurrentImageIndex(prev => prev + 1);
+    if (!canClickNext()) return;
+    setCurrentImageIndex(prev => prev + 1);
+    setRating(50);
   };
 
   const prevImage = () => {
-    if (currentImageIndex !== null && currentImageIndex > 0) setCurrentImageIndex(prev => prev - 1);
+    if (!canClickPrev()) return;
+    setCurrentImageIndex(prev => prev - 1);
+    setRating(50);
+  };
+
+  const handleSubmit = () => {
+    console.log(rating);
   };
 
   return (
     <div className={classes.Home}>
       <div className={classes.sideLeft}>
+        <h2>Доступные темы:</h2>
         {themes.map(theme => (
           <div
             key={theme.id}
@@ -66,17 +80,25 @@ const Home = () => {
       <div className={classes.content}>
         {currentTheme ? (
           <>
-            <div className={classes.themeName}>{currentImage && currentImage.name}</div>
+            <div className={classes.imageName}>{currentImage && currentImage.name}</div>
             <div className={classes.images}>
               <div className={classes.arrow} onClick={() => prevImage()}>
-                left
+                {canClickPrev() && <FaRegArrowAltCircleLeft />}
               </div>
-              {currentImage && <img src={srcImage(currentImage.file)} alt={currentImage.name} />}
+              <div className={classes.imageContainer}>
+                {currentImage && <img src={srcImage(currentImage.file)} alt={currentImage.name} />}
+              </div>
               <div className={classes.arrow} onClick={() => nextImage()}>
-                right
+                {canClickNext() && <FaRegArrowAltCircleRight />}
               </div>
             </div>
-            <div className={classes.slider}>slider</div>
+            <div className={classes.grade}>
+              <input type='range' value={rating} onChange={e => setRating(e.target.value)} min={0} max={100} />
+              <div className={classes.value}>
+                <span>Ваша оценка: {rating}</span>
+                <button onClick={() => handleSubmit()}>Сохранить</button>
+              </div>
+            </div>
           </>
         ) : (
           <>Тема не выбрана</>

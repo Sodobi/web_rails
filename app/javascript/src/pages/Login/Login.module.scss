@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: center;
   background-color: #f3ebf6;
-  font-family: 'Ubuntu', sans-serif;
 
   .main {
     background-color: #ffffff;
@@ -48,9 +47,13 @@
         &:focus {
           border: 2px solid rgba(0, 0, 0, 0.18);
         }
+
+        &::placeholder {
+          color: rgb(140, 150, 155);
+        }
       }
 
-      .submit {
+      button {
         width: 76%;
         padding: 10px 40px;
         box-sizing: border-box;
@@ -63,7 +66,7 @@
         box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
       }
 
-      .changeForm {
+      span {
         width: 76%;
         margin: auto;
         box-sizing: border-box;

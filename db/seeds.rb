@@ -18,7 +18,7 @@ User.create!([
 Image.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!('images')
 Image.create([
-{name: 'Неведимка', file: 'Bisser_1.jpg', theme_id: 1},
+{name: 'Невидимка', file: 'Bisser_1.jpg', theme_id: 1},
 {name: 'Серьги', file: 'Bisser_8.jpg', theme_id: 1},
 {name: 'Серьги из набора', file: 'Bisser_9.jpg', theme_id: 1},
 
@@ -44,9 +44,9 @@ Image.create([
 Theme.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!('themes')
 Theme.create([
-{name: "Тема 1"},     
-{name: "Тема 2"},      
-{name: "Тема 3"},   
-{name: "Тема 4"},      
-{name: "Тема 5"},    
+{name: "Серьги и заколки"},     
+{name: "Украшения на шею"},      
+{name: "Кольца"},   
+{name: "Браслеты"},      
+{name: "Прочее"},    
 ])
