@@ -1,13 +1,15 @@
 .Footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: #8c4b97;
   color: #fff;
   padding: 10px 30px;
   font-size: 14px;
 
-  .contactInfo {
-    span {
-      display: block;
-      margin-bottom: 5px;
-    }
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 }

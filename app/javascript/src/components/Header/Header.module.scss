@@ -2,17 +2,48 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 10px 20px;
   background-color: #8c4b97;
   color: #fff;
 
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
+  .mainInfo {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 
-  .title {
-    font-size: 20px;
+    .title {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
+
+      span {
+        font-size: 20px;
+        margin-left: 10px;
+      }
+    }
+
+    .languageSwitch {
+      display: flex;
+      gap: 2px;
+      span {
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .active {
+        color: #24002a;
+        font-weight: bold;
+      }
+    }
   }
 
   .nav {
@@ -23,7 +54,10 @@
 
       li {
         display: inline;
-        margin-right: 20px;
+
+        &:not(:last-child) {
+          margin-right: 20px;
+        }
 
         .linkActive {
           color: #24002a;
@@ -41,27 +75,14 @@
     }
   }
 
-  .language-switch {
-    button {
-      background-color: transparent;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-      font-size: 16px;
-      margin-right: 10px;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .user-info {
+  .userInfo {
     display: flex;
     align-items: center;
 
     span {
-      margin-right: 10px;
+      margin-right: 30px;
+      color: #24002a;
+      font-weight: bold;
     }
 
     button {
@@ -70,10 +91,6 @@
       color: #fff;
       cursor: pointer;
       font-size: 16px;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 }

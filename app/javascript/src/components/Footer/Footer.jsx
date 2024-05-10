@@ -4,9 +4,17 @@ import classes from './Footer.module.scss';
 const Footer = () => {
   return (
     <footer className={classes.Footer}>
-      <div className={classes.contactInfo}>
-        <span>Автора проекта: Иванова Софья</span>
-        <span>По всем вопросам обращаться в TG: @myTG</span>
+      <div className={classes.info}>
+        <span>
+          Автора проекта: <i>Иванова Софья</i>
+        </span>
+        <span>Все права защищены</span>
+      </div>
+
+      <div className={classes.info}>
+        <span>
+          Стек технологий: <i>Ruby on Rails</i> & <i>ReactJS</i>
+        </span>
       </div>
     </footer>
   );
