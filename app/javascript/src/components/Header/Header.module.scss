@@ -29,6 +29,7 @@
     .languageSwitch {
       display: flex;
       gap: 2px;
+
       span {
         color: #fff;
         font-size: 16px;
@@ -83,14 +84,18 @@
       margin-right: 30px;
       color: #24002a;
       font-weight: bold;
+      font-size: 16px;
     }
 
-    button {
-      background-color: transparent;
-      border: none;
-      color: #fff;
+    svg {
+      height: 40px;
+      width: 40px;
       cursor: pointer;
-      font-size: 16px;
+      transition: 0.3s ease;
+
+      &:hover {
+        color: #690c79;
+      }
     }
   }
 }

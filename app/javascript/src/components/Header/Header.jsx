@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { VscSignOut } from 'react-icons/vsc';
 import { PATH_ABOUT, PATH_HOME } from '../Navigation/routes';
 import { useAuthContext } from '../../hooks';
 import classes from './Header.module.scss';
@@ -47,7 +48,7 @@ const Header = () => {
           </nav>
           <div className={classes.userInfo}>
             <span>{authContext.user.name}</span>
-            <button onClick={() => authContext.handleSignOut()}>Выйти</button>
+            <VscSignOut onClick={() => authContext.handleSignOut()} />
           </div>
         </>
       )}
