@@ -3,7 +3,11 @@ class ImagesController < ApplicationController
 
   # GET /images or /images.json
   def index
-    @images = Image.all
+    if params[:theme_id].present?
+      @images = Image.where(theme_id: params[:theme_id])
+    else
+      @images = Image.all
+    end
     render json: @images
   end
 

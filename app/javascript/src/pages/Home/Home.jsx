@@ -1,65 +1,92 @@
 import React, { useEffect, useState } from 'react';
 import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight } from 'react-icons/fa';
 import classNames from 'classnames';
+import { useAuthContext } from '../../hooks';
 import ImageService from '../../services/image.service';
 import ThemeService from '../../services/theme.service';
+import ValueService from '../../services/value.service';
 import classes from './Home.module.scss';
 
 const srcImage = img => `../../assets/${img}`;
 
-const Home = () => {
-  const [themes, setThemes] = useState([]);
+const DEFAULT_INPUT_VALUE = 50;
 
+const Home = () => {
+  const user = useAuthContext().user;
+
+  const [themes, setThemes] = useState([]);
   const [images, setImages] = useState([]);
-  const [imagesByTheme, setImagesByTheme] = useState([]);
 
   const [currentTheme, setCurrentTheme] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
-
   const [currentImageIndex, setCurrentImageIndex] = useState(null);
+  const [currentValue, setCurrentValue] = useState(DEFAULT_INPUT_VALUE);
 
-  const [rating, setRating] = useState(50);
+  const [userValue, setUserValue] = useState(null);
+  const [averageValue, setAverageValue] = useState(null);
 
   useEffect(() => {
-    ImageService.getAll()
-      .then(response => setImages(response.data))
-      .catch(console.log);
-
     ThemeService.getAll()
       .then(response => setThemes(response.data))
       .catch(console.log);
   }, []);
 
   useEffect(() => {
-    if (!currentTheme || !images.length) return;
-    const filteredImages = images.filter(image => image.theme_id === currentTheme.id);
-    setImagesByTheme(filteredImages);
-    setCurrentImageIndex(filteredImages.length > 0 ? 0 : null);
+    setImages([]);
+    setCurrentImage(null);
+    setCurrentImageIndex(null);
+    if (currentTheme) {
+      ImageService.getByThemeId(currentTheme.id)
+        .then(response => {
+          setImages(response.data);
+          setCurrentImage(response.data.length ? response.data[0] : null);
+          setCurrentImageIndex(response.data.length ? 0 : null);
+        })
+        .catch(console.log);
+    }
   }, [currentTheme]);
 
   useEffect(() => {
-    if (currentImageIndex !== null && currentImageIndex >= 0 && currentImageIndex < imagesByTheme.length)
-      setCurrentImage(imagesByTheme[currentImageIndex]);
+    loadImageValues();
+  }, [currentImage]);
+
+  useEffect(() => {
+    if (currentImageIndex !== null) setCurrentImage(images[currentImageIndex]);
     else setCurrentImage(null);
-  }, [currentImageIndex, imagesByTheme]);
+  }, [currentImageIndex]);
 
-  const canClickNext = () => currentImageIndex !== null && currentImageIndex < imagesByTheme.length - 1;
+  const loadImageValues = () => {
+    if (!currentImage) return;
+
+    ValueService.getByImage(currentImage.id)
+      .then(response => {
+        const sumValues = response.data.reduce((acc, value) => acc + value.value, 0);
+        const aveValue = response.data.length ? sumValues / response.data.length : null;
+        const valueOfUser = response.data.find(value => value.user_id === user.id);
+        setAverageValue(aveValue ? parseFloat(aveValue.toFixed(2)) : null);
+        setUserValue(valueOfUser ? valueOfUser : null);
+        setCurrentValue(valueOfUser ? valueOfUser.value : DEFAULT_INPUT_VALUE);
+      })
+      .catch(console.log);
+  };
+
+  const canClickNext = () => currentImageIndex !== null && currentImageIndex < images.length - 1;
   const canClickPrev = () => currentImageIndex !== null && currentImageIndex > 0;
-
-  const nextImage = () => {
-    if (!canClickNext()) return;
-    setCurrentImageIndex(prev => prev + 1);
-    setRating(50);
-  };
-
-  const prevImage = () => {
-    if (!canClickPrev()) return;
-    setCurrentImageIndex(prev => prev - 1);
-    setRating(50);
-  };
+  const clickNext = () => canClickNext() && setCurrentImageIndex(currentImageIndex + 1);
+  const clickPrev = () => canClickPrev() && setCurrentImageIndex(currentImageIndex - 1);
 
   const handleSubmit = () => {
-    console.log(rating);
+    if (!user || !currentImage || !currentValue) return;
+
+    if (userValue) {
+      ValueService.update(userValue.id, user.id, currentImage.id, currentValue)
+        .then(() => loadImageValues())
+        .catch(console.log);
+    } else {
+      ValueService.create(user.id, currentImage.id, currentValue)
+        .then(() => loadImageValues())
+        .catch(console.log);
+    }
   };
 
   return (
@@ -79,27 +106,39 @@ const Home = () => {
 
       <div className={classes.content}>
         {currentTheme ? (
-          <>
-            <div className={classes.imageName}>{currentImage && currentImage.name}</div>
-            <div className={classes.images}>
-              <div className={classes.arrow} onClick={() => prevImage()}>
-                {canClickPrev() && <FaRegArrowAltCircleLeft />}
+          currentImage && (
+            <>
+              <div className={classes.imageName}>{currentImage.name}</div>
+              <div className={classes.images}>
+                <div className={classes.arrow}>
+                  {canClickPrev() && <FaRegArrowAltCircleLeft onClick={() => clickPrev()} />}
+                </div>
+                <div className={classes.imageContainer}>
+                  <img src={srcImage(currentImage.file)} alt={currentImage.name} />
+                </div>
+                <div className={classes.arrow}>
+                  {canClickNext() && <FaRegArrowAltCircleRight onClick={() => clickNext()} />}
+                </div>
               </div>
-              <div className={classes.imageContainer}>
-                {currentImage && <img src={srcImage(currentImage.file)} alt={currentImage.name} />}
+              <div className={classes.grade}>
+                <div className={classes.valueInfo}>
+                  <span>Средняя оценка: {averageValue ?? '-'}</span>
+                  <span>Ваша оценка: {userValue?.value ?? '-'}</span>
+                </div>
+                <input
+                  type='range'
+                  value={currentValue}
+                  onChange={e => setCurrentValue(e.target.value)}
+                  min={0}
+                  max={100}
+                />
+                <div className={classes.value}>
+                  <span>Значение: {currentValue}</span>
+                  <button onClick={() => handleSubmit()}>Сохранить</button>
+                </div>
               </div>
-              <div className={classes.arrow} onClick={() => nextImage()}>
-                {canClickNext() && <FaRegArrowAltCircleRight />}
-              </div>
-            </div>
-            <div className={classes.grade}>
-              <input type='range' value={rating} onChange={e => setRating(e.target.value)} min={0} max={100} />
-              <div className={classes.value}>
-                <span>Ваша оценка: {rating}</span>
-                <button onClick={() => handleSubmit()}>Сохранить</button>
-              </div>
-            </div>
-          </>
+            </>
+          )
         ) : (
           <>Тема не выбрана</>
         )}

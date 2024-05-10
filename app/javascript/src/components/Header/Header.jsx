@@ -33,10 +33,12 @@ const Header = () => {
         <button>RU</button>
         <button>EN</button>
       </div>
-      <div className={classes['user-info']}>
-        {authContext.user && <span>{authContext.user.name}</span>}
-        <button onClick={() => authContext.handleSignOut()}>Выйти</button>
-      </div>
+      {authContext.user && (
+        <div className={classes['user-info']}>
+          <span>{authContext.user.name}</span>
+          <button onClick={() => authContext.handleSignOut()}>Выйти</button>
+        </div>
+      )}
     </header>
   );
 };

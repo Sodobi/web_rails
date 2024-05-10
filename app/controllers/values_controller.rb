@@ -3,7 +3,14 @@ class ValuesController < ApplicationController
 
   # GET /values or /values.json
   def index
-    @values = Value.all
+    if params[:image_id].present? && params[:user_id].present?
+      @values = Value.where(image_id: params[:image_id], user_id: params[:user_id])
+    elsif params[:image_id].present?
+      @values = Value.where(image_id: params[:image_id])
+    else
+      @values = Value.all
+    end
+    render json: @values
   end
 
   # GET /values/1 or /values/1.json
@@ -38,10 +45,10 @@ class ValuesController < ApplicationController
   def update
     respond_to do |format|
       if @value.update(value_params)
-        format.html { redirect_to value_url(@value), notice: "Value was successfully updated." }
+        # format.html { redirect_to value_url(@value), notice: "Value was successfully updated." }
         format.json { render :show, status: :ok, location: @value }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        # format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @value.errors, status: :unprocessable_entity }
       end
     end

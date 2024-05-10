@@ -1,17 +1,14 @@
-import axios from 'axios';
-// import { apiAxios } from './host';
+import { apiClient } from './host';
 
 class ThemeService {
   #prefix = 'themes/';
 
   async getAll() {
-    // return apiAxios.get(this.prefix);
-    return axios.get(this.#prefix);
+    return apiClient.get(this.#prefix);
   }
 
   async getById(id) {
-    // return apiAxios.get(`${this.prefix}${id}`);
-    return axios.get(`${this.#prefix}${id}`);
+    return apiClient.get(`${this.#prefix}${id}`);
   }
 }
 

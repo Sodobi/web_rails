@@ -1,16 +1,16 @@
-import axios from 'axios';
+import { apiClient } from './host';
 
 class AuthService {
   #prefixLogin = 'auth/login';
   #prefixLogout = 'auth/logout';
   #prefixUser = 'users/';
 
-  async signIn(data, csrfToken) {
-    return axios.post(this.#prefixLogin, data, { headers: { 'X-CSRF-Token': csrfToken } });
+  async signIn(data) {
+    return apiClient.post(this.#prefixLogin, data);
   }
 
-  async signUp(data, csrfToken) {
-    return axios.post(this.#prefixUser, data, { headers: { 'X-CSRF-Token': csrfToken } });
+  async signUp(data) {
+    return apiClient.post(this.#prefixUser, data);
   }
 
   async signOut() {

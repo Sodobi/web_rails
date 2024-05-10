@@ -6,7 +6,7 @@ import { PATH_HOME, PATH_ABOUT, PATH_LOGIN } from './routes';
 import Layout from './Layout';
 
 const Navigation = () => {
-  const authContext = useAuthContext();
+  const user = useAuthContext().user;
 
   const AuthRoutes = (
     <Routes>
@@ -27,7 +27,7 @@ const Navigation = () => {
     </Routes>
   );
 
-  return authContext.isUserLogged ? AuthRoutes : PublicRoutes;
+  return user ? AuthRoutes : PublicRoutes;
 };
 
 export { Navigation };

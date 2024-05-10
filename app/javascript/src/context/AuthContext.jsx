@@ -1,23 +1,17 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import AuthService from '../services/auth.service';
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [isUserLogged, setIsUserLogged] = useState(false);
   const [user, setUser] = useState(null);
-  const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-
-  useEffect(() => {
-    setIsUserLogged(user === null ? false : true);
-  }, [user]);
 
   const handleSignIn = (email, password) => {
     const session = {
       email: email,
       password: password,
     };
-    AuthService.signIn({ session: session }, csrfToken)
+    AuthService.signIn({ session: session })
       .then(response => {
         setUser(response.data.user);
       })
@@ -30,7 +24,7 @@ export const AuthProvider = ({ children }) => {
       email: email,
       password: password,
     };
-    AuthService.signUp({ user: user }, csrfToken)
+    AuthService.signUp({ user: user })
       .then(() => handleSignIn(email, password))
       .catch(console.log);
   };
@@ -47,7 +41,6 @@ export const AuthProvider = ({ children }) => {
         handleSignIn,
         handleSignUp,
         handleSignOut,
-        isUserLogged,
         user,
       }}
     >
