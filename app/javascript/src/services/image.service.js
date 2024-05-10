@@ -2,16 +2,16 @@ import axios from 'axios';
 // import { apiAxios } from './host';
 
 class ImageService {
-  prefix = 'images/';
+  #prefix = 'images/';
 
   async getAll() {
     // return apiAxios.get(this.prefix);
-    return axios.get(this.prefix);
+    return axios.get(this.#prefix);
   }
 
   async getById(id) {
     // return apiAxios.get(`${this.prefix}/${id}`);
-    return axios.get(`${this.prefix}${id}`);
+    return axios.get(`${this.#prefix}${id}`);
   }
 }
 

@@ -11,6 +11,8 @@ gem "sprockets-rails"
 # PostgreSQL
 gem 'pg'
 
+gem 'bcrypt'
+
 # Gemfile
 gem 'rack-cors', :require => 'rack/cors'
 

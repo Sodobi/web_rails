@@ -1,31 +1,24 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { PATH_HOME } from '../../components/Navigation/routes';
+import { useAuthContext } from '../../hooks';
 import classes from './Login.module.scss';
 
 const Login = () => {
-  const navigate = useNavigate();
+  const authContext = useAuthContext();
   const [isSignIn, setIsSignIn] = useState(true);
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
+  const [name, setName] = useState('test');
+  const [email, setEmail] = useState('test@mail.ru');
+  const [password, setPassword] = useState('123456');
+  const [confirmPassword, setConfirmPassword] = useState('123456');
 
   const signIn = () => {
-    console.log('email: ', email);
-    console.log('password: ', password);
-
-    navigate(PATH_HOME);
+    authContext.handleSignIn(email, password);
   };
 
   const signUp = () => {
-    console.log('name: ', name);
-    console.log('email: ', email);
-    console.log('password: ', password);
-    console.log('confirm password: ', password2);
+    if (password !== confirmPassword) return;
 
-    navigate(PATH_HOME);
+    authContext.handleSignUp(name, email, password);
   };
 
   const handleSubmit = e => {
@@ -38,7 +31,7 @@ const Login = () => {
     setName('');
     setEmail('');
     setPassword('');
-    setPassword2('');
+    setConfirmPassword('');
 
     setIsSignIn(prev => !prev);
   };
@@ -50,8 +43,20 @@ const Login = () => {
           <>
             <div className={classes.header}>Sign in</div>
             <form onSubmit={handleSubmit}>
-              <input type='text' value={email} onChange={setEmail} placeholder='Email' />
-              <input type='password' value={password} onChange={setPassword} placeholder='Password' />
+              <input
+                type='email'
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder='Email'
+                maxLength={50}
+              />
+              <input
+                type='password'
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder='Password'
+                minLength={6}
+              />
               <button type='submit'>Sign in</button>
               <span onClick={() => changeForm()}>Create account</span>
             </form>
@@ -60,10 +65,28 @@ const Login = () => {
           <>
             <div className={classes.header}>Sign up</div>
             <form onSubmit={handleSubmit}>
-              <input type='text' value={name} onChange={setName} placeholder='Name' />
-              <input type='text' value={email} onChange={setEmail} placeholder='Email' />
-              <input type='password' value={password} onChange={setPassword} placeholder='Password' />
-              <input type='password' value={password2} onChange={setPassword2} placeholder='Confirm password' />
+              <input type='text' value={name} onChange={e => setName(e.target.value)} placeholder='Name' />
+              <input
+                type='email'
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder='Email'
+                maxLength={50}
+              />
+              <input
+                type='password'
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder='Password'
+                minLength={6}
+              />
+              <input
+                type='password'
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+                placeholder='Confirm password'
+                minLength={6}
+              />
               <button type='submit'>Sign up</button>
               <span onClick={() => changeForm()}>Login to account</span>
             </form>
