@@ -110,7 +110,7 @@ const Login = () => {
           </>
         )}
       </div>
-      {errorMessage.length && <div className={classes.error}>{t(errorMessage)}</div>}
+      {!!errorMessage.length && <div className={classes.error}>{t(errorMessage)}</div>}
     </div>
   );
 };
