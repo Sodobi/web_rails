@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '../../hooks';
 import classes from './Login.module.scss';
 
 const Login = () => {
   const authContext = useAuthContext();
+  const { t } = useTranslation();
+
   const [isSignIn, setIsSignIn] = useState(true);
 
-  const [name, setName] = useState('test');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('test@mail.ru');
   const [password, setPassword] = useState('123456');
-  const [confirmPassword, setConfirmPassword] = useState('123456');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const signIn = () => {
     authContext.handleSignIn(email, password);
@@ -41,54 +44,54 @@ const Login = () => {
       <div className={classes.main}>
         {isSignIn ? (
           <>
-            <div className={classes.header}>Sign in</div>
+            <div className={classes.header}>{t('login.authorization')}</div>
             <form onSubmit={handleSubmit}>
               <input
                 type='email'
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder='Email'
+                placeholder={t('login.email')}
                 maxLength={50}
               />
               <input
                 type='password'
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                placeholder='Password'
+                placeholder={t('login.password')}
                 minLength={6}
               />
-              <button type='submit'>Sign in</button>
-              <span onClick={() => changeForm()}>Create account</span>
+              <button type='submit'>{t('login.signIn')}</button>
+              <span onClick={() => changeForm()}>{t('login.create')}</span>
             </form>
           </>
         ) : (
           <>
-            <div className={classes.header}>Sign up</div>
+            <div className={classes.header}>{t('login.registration')}</div>
             <form onSubmit={handleSubmit}>
-              <input type='text' value={name} onChange={e => setName(e.target.value)} placeholder='Name' />
+              <input type='text' value={name} onChange={e => setName(e.target.value)} placeholder={t('login.name')} />
               <input
                 type='email'
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder='Email'
+                placeholder={t('login.email')}
                 maxLength={50}
               />
               <input
                 type='password'
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                placeholder='Password'
+                placeholder={t('login.password')}
                 minLength={6}
               />
               <input
                 type='password'
                 value={confirmPassword}
                 onChange={e => setConfirmPassword(e.target.value)}
-                placeholder='Confirm password'
+                placeholder={t('login.confirmPassword')}
                 minLength={6}
               />
-              <button type='submit'>Sign up</button>
-              <span onClick={() => changeForm()}>Login to account</span>
+              <button type='submit'>{t('login.signUp')}</button>
+              <span onClick={() => changeForm()}>{t('login.login')}</span>
             </form>
           </>
         )}

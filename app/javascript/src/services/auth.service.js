@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { sha256 } from 'js-sha256';
 import { apiClient } from './host';
 
 class AuthService {
@@ -16,6 +18,12 @@ class AuthService {
   async signOut() {
     const res = await fetch(this.#prefixLogout);
     if (!res.ok) throw new Error(`status: ${res.status}. Status text: ${res.statusText}`);
+  }
+
+  async getGravatar(email) {
+    const emailTest = 'nutshell2088@yandex.ru';
+    const hash = sha256(emailTest);
+    return axios.get(`https://gravatar.com/avatar/${hash}`, { responseType: 'blob' });
   }
 }
 

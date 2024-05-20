@@ -7,6 +7,8 @@ class ValuesController < ApplicationController
       @values = Value.where(image_id: params[:image_id], user_id: params[:user_id])
     elsif params[:image_id].present?
       @values = Value.where(image_id: params[:image_id])
+    elsif params[:user_id].present?
+      @values = Value.where(user_id: params[:user_id])
     else
       @values = Value.all
     end

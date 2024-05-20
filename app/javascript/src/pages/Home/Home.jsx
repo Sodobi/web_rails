@@ -6,12 +6,15 @@ import ImageService from '../../services/image.service';
 import ThemeService from '../../services/theme.service';
 import ValueService from '../../services/value.service';
 import classes from './Home.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const srcImage = img => `../../assets/${img}`;
 
 const DEFAULT_INPUT_VALUE = 50;
 
 const Home = () => {
+  const { t } = useTranslation();
+
   const user = useAuthContext().user;
 
   const [themes, setThemes] = useState([]);
@@ -92,7 +95,7 @@ const Home = () => {
   return (
     <div className={classes.Home}>
       <div className={classes.sideLeft}>
-        <h2>Доступные темы:</h2>
+        <h2>{t('home.allThemes')}:</h2>
         {themes.map(theme => (
           <div
             key={theme.id}
@@ -122,8 +125,12 @@ const Home = () => {
               </div>
               <div className={classes.grade}>
                 <div className={classes.valueInfo}>
-                  <span>Средняя оценка: {averageValue ?? '-'}</span>
-                  <span>Ваша оценка: {userValue?.value ?? '-'}</span>
+                  <span>
+                    {t('home.averageValue')}: {averageValue ?? '-'}
+                  </span>
+                  <span>
+                    {t('home.yourValue')}: {userValue?.value ?? '-'}
+                  </span>
                 </div>
                 <input
                   type='range'
@@ -133,14 +140,16 @@ const Home = () => {
                   max={100}
                 />
                 <div className={classes.value}>
-                  <span>Значение: {currentValue}</span>
-                  <button onClick={() => handleSubmit()}>Сохранить</button>
+                  <span>
+                    {t('home.value')}: {currentValue}
+                  </span>
+                  <button onClick={() => handleSubmit()}>{t('home.save')}</button>
                 </div>
               </div>
             </>
           )
         ) : (
-          <>Тема не выбрана</>
+          <>{t('home.noTheme')}</>
         )}
       </div>
     </div>

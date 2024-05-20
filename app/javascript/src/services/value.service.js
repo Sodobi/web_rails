@@ -19,6 +19,10 @@ class ValueService {
     return apiClient.get(`${this.#prefix}?image_id=${image_id}`);
   }
 
+  async getByUser(user_id) {
+    return apiClient.get(`${this.#prefix}?user_id=${user_id}`);
+  }
+
   async create(userId, imageId, value) {
     const data = {
       user_id: userId,

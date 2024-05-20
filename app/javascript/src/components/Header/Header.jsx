@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { NavLink, Link } from 'react-router-dom';
 import { VscSignOut } from 'react-icons/vsc';
-import { PATH_ABOUT, PATH_HOME } from '../Navigation/routes';
+import { PATH_ABOUT, PATH_HOME, PATH_PROFILE } from '../Navigation/routes';
 import { useAuthContext } from '../../hooks';
 import classes from './Header.module.scss';
 
@@ -9,22 +10,21 @@ const setActive = ({ isActive }) => (isActive ? classes.linkActive : '');
 
 const Header = () => {
   const authContext = useAuthContext();
-
-  const [language, setLanguage] = useState('RU');
+  const { t, i18n } = useTranslation();
 
   return (
     <header className={classes.Header}>
       <div className={classes.mainInfo}>
         <div className={classes.title}>
           <img src='../../assets/logo.svg' alt='logo2' />
-          <span>Экспертная оценка</span>
+          <span>{t('header.title')}</span>
         </div>
         <div className={classes.languageSwitch}>
-          <span className={language === 'RU' ? classes.active : ''} onClick={() => setLanguage('RU')}>
+          <span className={i18n.language === 'ru' ? classes.active : ''} onClick={() => i18n.changeLanguage('ru')}>
             RU
           </span>
           |
-          <span className={language === 'EN' ? classes.active : ''} onClick={() => setLanguage('EN')}>
+          <span className={i18n.language === 'en' ? classes.active : ''} onClick={() => i18n.changeLanguage('en')}>
             EN
           </span>
         </div>
@@ -36,18 +36,21 @@ const Header = () => {
             <ul>
               <li>
                 <NavLink to={PATH_HOME} className={setActive}>
-                  Главная
+                  {t('header.home')}
                 </NavLink>
               </li>
               <li>
                 <NavLink to={PATH_ABOUT} className={setActive}>
-                  О нас
+                  {t('header.about')}
                 </NavLink>
               </li>
             </ul>
           </nav>
           <div className={classes.userInfo}>
-            <span>{authContext.user.name}</span>
+            <Link to={PATH_PROFILE}>
+              <img src={authContext.avatar ?? '../../assets/user.png'} />
+              <span>{authContext.user.name}</span>
+            </Link>
             <VscSignOut onClick={() => authContext.handleSignOut()} />
           </div>
         </>

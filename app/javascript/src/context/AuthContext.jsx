@@ -1,10 +1,19 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import AuthService from '../services/auth.service';
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+
+  useEffect(() => {
+    if (!user) return;
+
+    AuthService.getGravatar()
+      .then(response => setAvatar(URL.createObjectURL(response.data)))
+      .catch(console.log);
+  }, [user]);
 
   const handleSignIn = (email, password) => {
     const session = {
@@ -42,6 +51,7 @@ export const AuthProvider = ({ children }) => {
         handleSignUp,
         handleSignOut,
         user,
+        avatar,
       }}
     >
       {children}

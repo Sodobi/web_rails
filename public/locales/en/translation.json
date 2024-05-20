@@ -1,0 +1,42 @@
+{
+	"header": {
+		"title": "Expertise",
+		"home": "Home",
+		"about": "About us"
+	},
+
+	"footer": {
+		"author": "Author of this project",
+		"name": "Ivanova Sofia",
+		"stack": "Technology stack"
+	},
+
+	"login": {
+		"name": "Name",
+		"email": "Email",
+		"password": "Password",
+		"confirmPassword": "Confirm password",
+		"signIn": "Sign in",
+		"signUp": "Sign up",
+		"create": "Create account",
+		"login": "Login to account",
+		"authorization": "Authorization",
+		"registration": "Registration"
+	},
+
+	"home": {
+		"allThemes": "Available themes",
+		"averageValue": "Average rating",
+		"yourValue": "Your assessment",
+		"value": "Value",
+		"noTheme": "Theme is not selected",
+		"save": "Submit"
+	},
+
+	"profile": {
+		"name": "Name",
+		"email": "Email",
+		"rating": "Your ratings",
+		"value": "Value"
+	}
+}
