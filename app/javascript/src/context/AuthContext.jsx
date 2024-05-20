@@ -15,27 +15,23 @@ export const AuthProvider = ({ children }) => {
       .catch(console.log);
   }, [user]);
 
-  const handleSignIn = (email, password) => {
+  const handleSignIn = async (email, password) => {
     const session = {
       email: email,
       password: password,
     };
-    AuthService.signIn({ session: session })
-      .then(response => {
-        setUser(response.data.user);
-      })
-      .catch(console.log);
+    const response = await AuthService.signIn({ session: session });
+    setUser(response.data.user);
   };
 
-  const handleSignUp = (name, email, password) => {
+  const handleSignUp = async (name, email, password) => {
     const user = {
       name: name,
       email: email,
       password: password,
     };
-    AuthService.signUp({ user: user })
-      .then(() => handleSignIn(email, password))
-      .catch(console.log);
+    await AuthService.signUp({ user: user });
+    handleSignIn(email, password);
   };
 
   const handleSignOut = () => {

@@ -10,18 +10,31 @@ const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
 
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('test@mail.ru');
-  const [password, setPassword] = useState('123456');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const signIn = () => {
-    authContext.handleSignIn(email, password);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const signIn = async () => {
+    try {
+      await authContext.handleSignIn(email, password);
+    } catch (error) {
+      setErrorMessage('login.errorSignIn');
+    }
   };
 
-  const signUp = () => {
-    if (password !== confirmPassword) return;
+  const signUp = async () => {
+    if (password !== confirmPassword) {
+      setErrorMessage('login.errorPassword');
+      return;
+    }
 
-    authContext.handleSignUp(name, email, password);
+    try {
+      await authContext.handleSignUp(name, email, password);
+    } catch (error) {
+      setErrorMessage('login.errorSignUp');
+    }
   };
 
   const handleSubmit = e => {
@@ -35,6 +48,7 @@ const Login = () => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+    setErrorMessage('');
 
     setIsSignIn(prev => !prev);
   };
@@ -96,6 +110,7 @@ const Login = () => {
           </>
         )}
       </div>
+      {errorMessage.length && <div className={classes.error}>{t(errorMessage)}</div>}
     </div>
   );
 };

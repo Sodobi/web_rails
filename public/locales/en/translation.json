@@ -21,7 +21,10 @@
 		"create": "Create account",
 		"login": "Login to account",
 		"authorization": "Authorization",
-		"registration": "Registration"
+		"registration": "Registration",
+		"errorSignIn": "Incorrect email or password",
+		"errorSignUp": "A user with such an email already exists",
+		"errorPassword": "Passwords don't match"
 	},
 
 	"home": {
@@ -38,5 +41,14 @@
 		"email": "Email",
 		"rating": "Your ratings",
 		"value": "Value"
+	},
+
+	"about": {
+		"title": "About site",
+		"text1": "This site is dedicated to choosing the best bead products. Everyone knows that beads are the most important thing in every home. No one can do without a portion of good beads. Therefore, our team decided to dedicate this site to this topic in order to brighten up the gray everyday life of the inhabitants of the Internet.",
+		"text2": "We urge you to evaluate each bead product wisely in order to identify the true winner of all time. After all, not a few judgments depend on this rating. What can I say, it's no secret that the fate of the whole world depends on beads. After all, after some couple of decades, a person will wear clothes completely made of beads. And it is vital for everyone to prepare for this moment, so as not to look like a scoof in the eyes of other people.",
+		"text3": "Remember that you are responsible for every evaluation given to the products. If the fact of intentional underestimation or overestimation of a particular product is discovered, a bead patrol will immediately move after you in order to give you a bead court.",
+		"text4": "I would like to end with a quote from the main propagandist of beads (me):",
+		"text5": "Beads are not just small glass beads, they are magic that can turn a thread into a work of art, and dreams into reality."
 	}
 }

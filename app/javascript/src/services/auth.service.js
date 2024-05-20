@@ -21,8 +21,7 @@ class AuthService {
   }
 
   async getGravatar(email) {
-    const emailTest = 'nutshell2088@yandex.ru';
-    const hash = sha256(emailTest);
+    const hash = sha256(email);
     return axios.get(`https://gravatar.com/avatar/${hash}`, { responseType: 'blob' });
   }
 }
